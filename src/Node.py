@@ -41,8 +41,9 @@ class Node:
         # and use get_data in that node to return the value
         if key in self._data_store:
             return self._data_store[key]
-        node_name = self._vnode_map.get_assigned_node(key)
-        return self._node_dict[node_name].get_data(key)
+        owner = self._vnode_map.get_assigned_node(key)
+        owner_node = self._node_dict[owner]
+        return owner_node.get_data(key)
 
 
 
@@ -61,11 +62,12 @@ class Node:
             # Update this else section to find the owner using get_assigned_node function in _vnode_map
             # and set the value in the correct node. Use direct assignment if its the current node
             # or call set_data in the remote note otherwise
-            if key in self._data_store:
+            owner = self._vnode_map.get_assigned_node(key)
+            if owner == self.name:
                 self._data_store[key] = copy.deepcopy(value)
             else:
-                node_name = self._vnode_map.get_assigned_node(key)
-                self._node_dict[node_name].set_data(key, value)
+                owner_node = self._node_dict[owner]
+                owner_node.set_data(key, value)
 
     def remove_data(self, key):
         return self._data_store.pop(key, 'Key not found')
@@ -125,7 +127,7 @@ class Node:
         # Problem statement 3.a
         # Finds all vnodes mapped to this node and shuffles them
         # Implement this logic and store in local_vnode_list
-        for vnode, node_name in self._vnode_map.values():
+        for vnode, node_name in self._vnode_map.vnode_map.values():
             if node_name == self.name:
                 local_vnode_list.append(vnode)
         random.shuffle(local_vnode_list)
@@ -166,7 +168,7 @@ class Node:
         # Problem statement 4.a
         # Finds all vnodes mapped to this node and shuffles them
         # Implement this logic and store in local_vnode_list
-        for vnode, node_name in self._vnode_map.values():
+        for vnode, node_name in self._vnode_map.vnode_map.values():
             if node_name == self.name:
                 local_vnode_list.append(vnode)
         random.shuffle(local_vnode_list)
