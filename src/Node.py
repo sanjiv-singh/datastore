@@ -61,7 +61,11 @@ class Node:
             # Update this else section to find the owner using get_assigned_node function in _vnode_map
             # and set the value in the correct node. Use direct assignment if its the current node
             # or call set_data in the remote note otherwise
-            self._data_store[key] = copy.deepcopy(value)
+            if key in self._data_store:
+                self._data_store[key] = copy.deepcopy(value)
+            else:
+                node_name = self._vnode_map.get_assigned_node(key)
+                self._node_dict[node_name].set_data(key, value)
 
     def remove_data(self, key):
         return self._data_store.pop(key, 'Key not found')
