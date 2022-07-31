@@ -165,7 +165,11 @@ class Node:
 
         # Problem statement 4.a
         # Finds all vnodes mapped to this node and shuffles them
-        # Implement this logic and store in local_vnode_list        
+        # Implement this logic and store in local_vnode_list
+        for vnode, node_name in self._vnode_map.values():
+            if node_name == self.name:
+                local_vnode_list.append(vnode)
+        random.shuffle(local_vnode_list)
 
         # Prepares to map all vnodes proportionally and their corresponding keys for transfer
         assigned_node_list = list(self._node_dict.keys()) * math.ceil(len(local_vnode_list) / len(self._node_dict))
@@ -182,7 +186,9 @@ class Node:
         #               96: {'target_node': <nodeB>, 'keys': [<user id list>]}
         #               ...
         #                }
-        # Here 23 and 96 are examples of vnode ids        
+        # Here 23 and 96 are examples of vnode ids
+        for vnode, assigned_node in transfer_node_mapping.values():
+            transfer_dict[vnode] = dict(target_node=assigned_node, keys=assigned_node.get_keys())
 
         # Transfer the remapped keys to the extra nodes
         self.transfer_keys(transfer_dict)
