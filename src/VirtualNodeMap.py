@@ -24,7 +24,7 @@ class VirtualNodeMap:
         # Problem statement 1
         # Generate a dict of vnode ids (0 to (TOTAL_VIRTUAL_NODES - 1) mapped randomly
         # but equally (as far as maths permits) to node names
-        for vnode_id in range(TOTAL_VIRTUAL_NODES):
+        for vnode_id in range(self._TOTAL_VIRTUAL_NODES):
             index = vnode_id % len(self.node_names)
             self._vnode_map[vnode_id] = self.node_names[index]
 
