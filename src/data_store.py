@@ -1,6 +1,5 @@
 import random
 
-
 from InfoGenerator import InfoGenerator
 from User import UserInfo, UserData
 from Node import Node
@@ -31,12 +30,13 @@ vnode_map = first_node.clone_vnode_map()
 
 # Creates other nodes, intializing them with the same vnode mapping
 # Also updates the complete node mapping in all nodes
-for i in range(1, len(node_names)):
-    node_dict[node_names[i]] = Node(node_names[i], TOTAL_VIRTUAL_NODES, first_node.clone_vnode_map())
+for name in node_names:
+    if name == first_name:
+        continue
+    node_dict[name] = Node(name, TOTAL_VIRTUAL_NODES, first_node.clone_vnode_map())
 
 for name in node_names:
     node_dict[name].populate_nodes(node_dict)
-
 
 # Populates the distributed data store
 for i in range(INITIAL_NUM_KEYS):
@@ -63,6 +63,7 @@ for i in range(10):
     user_id = random.randint(0, INITIAL_NUM_KEYS - 1)
     print(first_node.get_data(user_id))
 print('\n\n')
+
 
 # Add a new node to the Data Store
 print('###############  ADDING A NODE ###############\n')
