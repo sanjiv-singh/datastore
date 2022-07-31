@@ -25,10 +25,10 @@ class VirtualNodeMap:
         # Generate a dict of vnode ids (0 to (TOTAL_VIRTUAL_NODES - 1) mapped randomly
         # but equally (as far as maths permits) to node names
         vnode_ids = list(range(self._TOTAL_VIRTUAL_NODES))
-        shuffled_vnode_ids = random.sample(vnode_ids, len(vnode_ids))
-        for i, vnode_id in enumerate(shuffled_vnode_ids):
-            index = i % len(self.node_names)
-            self._vnode_map[vnode_id] = self.node_names[index]
+        random.shuffle(vnode_ids)
+        for i, vnode_id in enumerate(vnode_ids):
+            node_name_index = i % len(self.node_names)
+            self._vnode_map[vnode_id] = self.node_names[node_name_index]
 
     # Return the vnode name mapped to a particular vnode
     def get_node_for_vnode(self, vnode):
