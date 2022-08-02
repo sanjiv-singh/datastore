@@ -125,6 +125,7 @@ class Node:
     def add_new_node(self, new_node_name, new_node):
         local_vnode_list = []
         self.add_node_to_mapping(new_node_name, new_node)
+        self._vnode_map._node_names.append(new_node_name)
         
         # Problem statement 3.a
         # Finds all vnodes mapped to this node and shuffles them
@@ -176,6 +177,7 @@ class Node:
     def remove_current_node(self, new_node_dict):
         local_vnode_list = []
         self.populate_nodes(new_node_dict)
+        self._vnode_map._node_names = list(new_node_dict.keys())
 
         # Problem statement 4.a
         # Finds all vnodes mapped to this node and shuffles them
