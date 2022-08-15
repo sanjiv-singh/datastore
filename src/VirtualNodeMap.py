@@ -1,5 +1,4 @@
 import random
-import math
 
 # Stores the vnode to node mapping
 # Composed within a node so that every node has its own vnode mapping
