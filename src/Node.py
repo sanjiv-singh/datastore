@@ -148,7 +148,7 @@ class Node:
         # Here 23 and 96 are examples of vnode ids
         for vnode in local_vnode_slice:
             user_id_list = []
-            for user_id in self._data_store.keys():
+            for user_id in self.get_keys():
                 if user_id % self._TOTAL_VIRTUAL_NODES == vnode:
                     user_id_list.append(user_id)
             transfer_dict[vnode] = dict(target_node=new_node_name, keys=user_id_list)
@@ -188,7 +188,7 @@ class Node:
         # Here 23 and 96 are examples of vnode ids
         for vnode, node_name in transfer_node_mapping.items():
             user_id_list = []
-            for user_id in self._data_store.keys():
+            for user_id in self.get_keys():
                 if user_id % self._TOTAL_VIRTUAL_NODES == vnode:
                     user_id_list.append(user_id)
             transfer_dict[vnode] = dict(target_node=node_name, keys=user_id_list)
