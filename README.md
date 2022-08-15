@@ -5,7 +5,7 @@ This project has been completed as part of course on Software Engineering for Io
 
 ## Running the program
 
-The client code (driver) is implemented in src/data_store.py. In order to run the program change into src and execute data_store.py using python3 interpreter (>= 3.7).
+The client code (driver) is implemented in `src/data_store.py`. In order to run the program change into src and execute data_store.py using `python` interpreter (>= 3.7).
 
 On Mac or Linux (unix)
 
