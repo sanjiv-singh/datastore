@@ -23,8 +23,14 @@ class VirtualNodeMap:
         # Problem statement 1
         # Generate a dict of vnode ids (0 to (TOTAL_VIRTUAL_NODES - 1) mapped randomly
         # but equally (as far as maths permits) to node names
+
+        # Create a list of vnode_ids (0 to TOTAL_VIRTUAL_NODES - 1)
         vnode_ids = list(range(self._TOTAL_VIRTUAL_NODES))
+        # Shuffle them in random order
         random.shuffle(vnode_ids)
+
+        # Enumerate over the list and find the node to be assigned using modulo hashing
+        # This will result in equal (as far as possible) distribution of vnodes to node names
         for i, vnode_id in enumerate(vnode_ids):
             node_name_index = i % len(self.node_names)
             self._vnode_map[vnode_id] = self.node_names[node_name_index]
@@ -37,6 +43,7 @@ class VirtualNodeMap:
     def get_vnodes_for_node(self, name):
         return [vnode for (vnode, node_name) in self._vnode_map.items()
                                              if node_name == name]
+
     # Returns the vnode name where a particular key is stored
     # It finds the vnode for the key through modulo mapping, and then looks up the physical node
     def get_assigned_node(self, key):
