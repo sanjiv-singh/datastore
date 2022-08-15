@@ -146,11 +146,17 @@ class Node:
         #               ...
         #                }
         # Here 23 and 96 are examples of vnode ids
+
+        #  First loop over all vnodes in the vnode_slice
         for vnode in local_vnode_slice:
             user_id_list = []
+            # Now loop over all keys to find keys corresponding in this vnode
+            # The same modulo hash is used that is used for vnode selection while
+            # inserting / updating a key value pair. Store these keys in user_id_list.
             for user_id in self.get_keys():
                 if user_id % self._TOTAL_VIRTUAL_NODES == vnode:
                     user_id_list.append(user_id)
+            # Add the vnode, new_node_name and keys to transfer_dict
             transfer_dict[vnode] = dict(target_node=new_node_name, keys=user_id_list)
         
         # Transfer the remapped keys to the new node
@@ -186,11 +192,17 @@ class Node:
         #               ...
         #                }
         # Here 23 and 96 are examples of vnode ids
+
+        #  First loop over the transfer_node_mapping
         for vnode, node_name in transfer_node_mapping.items():
             user_id_list = []
+            # Now loop over all keys to find keys corresponding in this vnode
+            # The same modulo hash is used that is used for vnode selection while
+            # inserting / updating a key value pair. Store these keys in user_id_list.
             for user_id in self.get_keys():
                 if user_id % self._TOTAL_VIRTUAL_NODES == vnode:
                     user_id_list.append(user_id)
+            # Add the vnode, node_name and keys to transfer_dict
             transfer_dict[vnode] = dict(target_node=node_name, keys=user_id_list)
 
         # Transfer the remapped keys to the extra nodes
