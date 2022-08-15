@@ -34,6 +34,10 @@ class VirtualNodeMap:
     def get_node_for_vnode(self, vnode):
         return self._vnode_map[vnode]
 
+    # Return the vnodes mapped to a particular node name
+    def get_vnodes_for_node(self, name):
+        return [vnode for (vnode, node_name) in self._vnode_map.items()
+                                             if node_name == name]
     # Returns the vnode name where a particular key is stored
     # It finds the vnode for the key through modulo mapping, and then looks up the physical node
     def get_assigned_node(self, key):
